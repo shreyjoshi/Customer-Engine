@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "Grocy Shop",
+    "description": "Grocy Shop",
+    "slug": "Grocy-Shop",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "version": "0.0.8",
+    "orientation": "portrait",
+    "icon": "./assets/images/GSLogoMainM.png",
+    "scheme": "myapp",
+    "splash": {
+      "image": "./assets/images/GSLogoMainM.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "android": {
+      "versionCode":8,
+      "package": "com.grocyshop.grocyshop",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD8R9dxPX0dhzWFxsUyQcPbpScBGEJvQFg"
+        }
+      }
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
