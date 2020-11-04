@@ -20,6 +20,7 @@ export const REMOVE_PRODUCT_TO_CART = "REMOVE_PRODUCT_TO_CART"
 export const CLEAR_PRODUCTS_FROM_CART = "CLEAR_PRODUCTS_FROM_CART"
 export const CHANGE_CART_QTY = "CHANGE_CART_QTY"
 export const REPLACE_CART = "REPLACE_CART"
+export const ADD_USER_DETAILS = "ADD_USER_DETAILS"
 // Action Creators
 
 let noteID = 0;
@@ -140,7 +141,12 @@ export function addUserToken(id){
   }
   app_state.userToken = id;
 }
-
+export function addUserDetails(res){
+  return{
+    type:ADD_USER_DETAILS,
+    id:res
+  }
+}
 // reducer
 
 let initialState = {products:{},retailor:[],category:[],inventory:[],items:[],orders:[],userInfo:{},cart:[],onboard:true}
@@ -284,6 +290,11 @@ function notesReducer(state = initialState, action) {
       return{
         ...state,
         userInfo:{...state.userInfo,userId:action.id}
+      }
+    case ADD_USER_DETAILS:
+      return{
+        ...state,
+        userInfo:{...state.userInfo, details:action.id}
       }
     case ADD_INVENTORY:
       console.log("added Inventory",action.id);

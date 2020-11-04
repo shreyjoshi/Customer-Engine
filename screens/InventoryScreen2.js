@@ -70,7 +70,7 @@ export default function App(props) {
     requestObj["deliveryBoy"] = "";
     requestObj["customerId"] = state.userInfo.userId;
     requestObj["totalCartValue"] = 0;
-    requestObj["address"] = "";
+    requestObj["address"] = state.userInfo.details.addressList.addressId;
     requestObj["deliveryNote"] = "nothing";
     requestObj["paymentStatus"] = "COD";
     for(var i = 0;i<state.cart.length;i++){

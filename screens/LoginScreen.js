@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { TextInput, Button, StyleSheet, View,Image,AsyncStorage,Text,TouchableOpacity } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { addnote, deletenote ,addCategory,addUserToken,addUserName} from '../redux/appRedux'
+import { addnote, deletenote ,addCategory,addUserToken,addUserName,addUserDetails} from '../redux/appRedux'
 
 
 export default function Login(props) {
@@ -87,25 +87,41 @@ export default function Login(props) {
       headers: {
         "Content-type": "application/json; charset=UTF-8",
         "Access-Control-Allow-Origin": "http://localhost:5000",
-      }})
+    }})
       .then((response)=>{
         if(!response.ok) throw new Error(response.status);
         else return response.json();
         }).then((response)=>{
-          setToken(JSON.stringify(response));
-          setUserInfo(userName);
-          console.log("response",response);
-          dispatch(addUserName(userName))
-          dispatch(addUserToken(response))
-          
-          dispatch(deletenote(1));
-          console.log("props.app_state",JSON.stringify(state));
-              //  AsyncStorage.setItem('token',response.token );
-              props.navigation.navigate('Root');
-  
-          
+              fetch("https://www.grocyshop.in/api/v1/consumer/getConsumer/"+userName,{
+                method: "GET",
+                headers: {
+                  "Content-type": "application/json; charset=UTF-8",
+                  'Authorization': 'Bearer ' + response.token,
+                  "Access-Control-Allow-Origin": "http://localhost:5000",
+              }})
+                .then((resp)=>{
+                  if(!resp.ok) throw new Error(resp.status);
+                  else return resp.json();
+                }).then((res) => {
 
-        }).catch((e)=>{(console.log(e))})
+                          setToken(JSON.stringify(response));
+                          setUserInfo(userName);
+                          dispatch(addUserName(userName))
+                          dispatch(addUserToken(response))
+                          dispatch(addUserDetails(res))
+
+                          dispatch(deletenote(1));
+                          console.log("props.app_state",JSON.stringify(state));
+                              //  AsyncStorage.setItem('token',response.token );
+                          props.navigation.navigate('Root');
+                              
+                }).catch((e) =>{
+                  console.log(e);
+                  alert("Invalid Username");
+                })   
+
+        }).catch((e)=>{(console.log(e))
+          alert("Enter Valid Username/Password");})
            console.log("this.props.navigation",props.navigation);
   }
   
